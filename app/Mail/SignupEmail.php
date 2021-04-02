@@ -28,6 +28,6 @@ class SignupEmail extends Mailable
      */
     public function build()
     {
-        return $this->from(env('MAIL_USERNAME'),'Vincent Azure')->subject("Welcome to my Website!")->view('mail.signup-email', ['email_data'=> $this->email_data]);
+        return $this->from(env('MAIL_USERNAME'), 'Vincent Azure')->subject("Welcome to my Website!")->view('mail.signup-email', ['email_data'=> $this->email_data]);
     }
 }

@@ -30,3 +30,4 @@ Route::prefix('users')->namespace('Users')->name('users.')->middleware(['web','a
 
 Route::prefix('data')->namespace('Data')->middleware(['web','auth'])->group(base_path('routes/web/data.php'));
 
+Route::get('/verify',[App\Http\Controllers\Auth\RegisterController::class,'verifyUser'])->name('verify.user');

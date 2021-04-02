@@ -1,14 +1,15 @@
 <?php
 
 namespace App\Http\Controllers\Auth;
-
 use App\Models\User;
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use App\Providers\RouteServiceProvider;
 use App\Http\Controllers\MailController;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+
 
 class RegisterController extends Controller
 {
@@ -24,6 +25,7 @@ class RegisterController extends Controller
     */
 
     use RegistersUsers;
+    
 
     /**
      * Where to redirect users after registration.
@@ -63,7 +65,7 @@ class RegisterController extends Controller
      * @param  array  $data
      * @return \App\Models\User
      */
-    public function create(Request $request){
+    public function register(Request $request){
         $user = new User();
         $user->name = $request->name;
         $user->email = $request->email;
@@ -76,5 +78,16 @@ class RegisterController extends Controller
             return redirect()->back()->with(session()->flash('alert-success','Your account has been created. Please check email for verifying.'));
         }
         return redirect()->back()->with(session()->flash('alert-danger','Something seems wrong.'));
+    }
+
+    public function verifyUser(){
+        $verification_code = \Illuminate\Support\Facades\Request::get('code');
+        $user = User::where(['verification_code' => $verification_code])->first();
+        if($user != null){
+            $user->is_verified = 1;
+            $user->save();
+            return redirect()->route('login')->with(session()->flash('alert-success','Your account has been verified.'));
+        }
+        return redirect()->route('login')->with(session()->flash('alert-danger','Invalid verification code.'));
     }
 }
