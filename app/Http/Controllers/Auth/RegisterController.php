@@ -9,6 +9,7 @@ use App\Providers\RouteServiceProvider;
 use App\Http\Controllers\MailController;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Support\Facades\Redirect;
 
 
 class RegisterController extends Controller
@@ -23,7 +24,7 @@ class RegisterController extends Controller
     | provide this functionality without requiring any additional code.
     |
     */
-
+    
     use RegistersUsers;
     
 
@@ -85,7 +86,9 @@ class RegisterController extends Controller
         $user = User::where(['verification_code' => $verification_code])->first();
         if($user != null){
             $user->is_verified = 1;
+            $user->email_verified_at = date_create('now')->format('Y-m-d H:i:s');
             $user->save();
+            
             return redirect()->route('login')->with(session()->flash('alert-success','Your account has been verified.'));
         }
         return redirect()->route('login')->with(session()->flash('alert-danger','Invalid verification code.'));
