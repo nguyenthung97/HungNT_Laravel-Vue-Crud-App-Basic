@@ -2,7 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Users\UsersController;
-
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
+use Illuminate\Http\Request;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -18,7 +19,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Auth::routes(['register' => false]);
+
+Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
@@ -27,3 +29,4 @@ Route::prefix('users')->namespace('Users')->name('users.')->middleware(['web','a
 });
 
 Route::prefix('data')->namespace('Data')->middleware(['web','auth'])->group(base_path('routes/web/data.php'));
+

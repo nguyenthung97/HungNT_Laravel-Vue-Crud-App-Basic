@@ -4,6 +4,20 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
+
+            <div class="flash-message">
+            @foreach(['danger','warning','success','info'] as $msg)
+                @if(Session::has('alert-' . $msg))
+                    <p class="alert alert-{{$msg}}"> 
+                        {{ Session::get('alert' . $msg) }}
+                        <a class="close" data-dismiss="alert" aria-label="close">
+                            &times;
+                        </a>
+                    </p>
+                @endif
+            @endforeach
+            </div>
+
             <div class="card">
                 <div class="card-header">{{ __('Register') }}</div>
 
@@ -38,6 +52,18 @@
                                 @enderror
                             </div>
                         </div>
+                        
+                        <!-- <div class="form-group row">
+                            <label for="email-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Confirm E-Mail') }}</label>
+                            <div class="col-md-6">
+                                <input type="email" id="email" class="form-control" name="email_confirmation" required autocomplete="email">
+                                @error('email')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{  $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div> -->
 
                         <div class="form-group row">
                             <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>

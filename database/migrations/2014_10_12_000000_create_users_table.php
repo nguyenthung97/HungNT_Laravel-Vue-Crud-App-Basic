@@ -24,6 +24,8 @@ class CreateUsersTable extends Migration
             $table->text('Settings')->nullable();
             $table->timestamps();
         });
+
+        
     }
 
     /**

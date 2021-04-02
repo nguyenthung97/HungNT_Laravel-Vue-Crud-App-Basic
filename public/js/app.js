@@ -6565,8 +6565,6 @@ __webpack_require__.r(__webpack_exports__);
         email: this.data.email,
         role: this.data.role
       }).then(function (response) {
-        console.log(response.data.user.name);
-
         _this.$emit('user-updated', response.data.user.name + "'s profile has been updated");
       })["catch"](function (errors) {
         if (errors.response.status === 500) {
