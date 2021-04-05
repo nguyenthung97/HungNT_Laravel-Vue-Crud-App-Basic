@@ -79,7 +79,10 @@
                     confirm_password: this.data.confirm_password
                 })
                 .then(response => {
-                    this.$emit('created-user', 'Successfully created user: ' + response.data.user.name + ' | email: ' + response.data.user.email)
+                    console.log(response.data.user.name)
+                    this.$emit('created-user', 'Successfully created user: ' +response.data.user.name + ' | email: ' + response.data.user.email)
+                    
+                    
                     })
                 .catch(errors => {
                     if(errors.response.status === 422){

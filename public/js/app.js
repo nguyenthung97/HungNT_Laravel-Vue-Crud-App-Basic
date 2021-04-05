@@ -6452,6 +6452,8 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
         password: this.data.password,
         confirm_password: this.data.confirm_password
       }).then(function (response) {
+        console.log(response.data.user.name);
+
         _this.$emit('created-user', 'Successfully created user: ' + response.data.user.name + ' | email: ' + response.data.user.email);
       })["catch"](function (errors) {
         if (errors.response.status === 422) {
